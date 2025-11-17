@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 import requests
 import base64
 import os
-
 from dotenv import load_dotenv
+import random
 
 # .env 로드
 load_dotenv()
@@ -73,7 +73,7 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
     params = {
         "q": f'genre:"{genre}"',
         "type": "track",
-        "limit": limit
+        "limit": 50
     }
     headers = {
         "Authorization": f"Bearer {token}"
@@ -84,7 +84,8 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
     data = res.json()
 
     items = data.get("tracks", {}).get("items", [])
-    tracks = []
+    all_tracks = []
+
     for t in items:
         track_name = t.get("name")
         artists = ", ".join([a.get("name", "") for a in t.get("artists", [])])
@@ -93,7 +94,7 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
         imgae_url = images[0]["url"] if images else None
         external_url = t.get("external_urls", {}).get("spotify")
 
-        tracks.append({
+        all_tracks.append({
             "name": track_name,
             "artists": artists,
             "album": album,
@@ -101,7 +102,13 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
             "url": external_url,
         })
 
-    return tracks
+    if not all_tracks:
+        return []
+
+    if len(all_tracks) > limit:
+        return random.sample(all_tracks, limit)
+    else:
+        return all_tracks
 
 @app.route("/", methods=["GET"])
 def index():
