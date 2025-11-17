@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section>
+    <h2>"{{ genre }}" 추천 곡 ({{ limit }}곡)</h2>
+</section>
+<a href="{{ url_for('index') }}">다른 장르 선택하기</a>
+
+<div>
+    {% for t in tracks %}
+        <div>
+            {% if t.image %}
+                <img src="{{ t.image }}" alt="{{ t.name }}">
+            {% endif %}
+            <div>
+                <h3>{{ t.name }}</h3>
+                <p>{{ t.artist }}</p>
+                <p>{{ t.album }}</p>
+                {% if t.url %}
+                    <a href="{{ t.url }}" target="_blank">Spotify에서 듣기</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
