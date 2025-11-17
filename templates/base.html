@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Music Recommend</title>
+
+    <link rel="stylesheet" href="static/style.css">
+
 </head>
 <body>
     <header>
-        <h1><a href="{{ url_for('index') }}">장르 기반 음악 추천</a></h1>
+        <h1 style="text-align: center;"><a href="{{ url_for('index') }}">장르 기반 음악 추천</a></h1>
     </header>
 
     <main>
@@ -25,7 +28,7 @@
     </main>
 
     <footer>
-        <p>Powered by Spotify Web API - Flask</p>
+        <p style="text-align: right;">Powered by Spotify Web API - Flask</p>
     </footer>
 </body>
 </html>

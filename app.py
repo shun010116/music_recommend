@@ -63,41 +63,6 @@ def get_spotify_token() -> str:
     data = res.json()
     return data["access_token"]
 
-# def get_recommendations_by_genre(genre: str, limit: int = 10):
-#     token = get_spotify_token()
-
-#     url = "https://api.spotify.com/v1/recommendations"
-#     params = {
-#         "seed_genres": genre,
-#         "limit": limit,
-#     }
-#     headers = {
-#         "Authorization": f"Bearer {token}"
-#     }
-
-#     res = requests.get(url, headers=headers, params=params, timeout=5)
-#     res.raise_for_status()
-#     data = res.json()
-
-#     tracks = []
-#     for t in data.get("tracks", []):
-#         track_name = t.get("name")
-#         artists = ', '.join([a.get("name", "") for a in t.get("artist", [])])
-#         album = t.get("album", {}).get("name")
-#         images = t.get("album", {}).get("images", [])
-#         imgae_url = images[0]["url"] if images else None
-#         external_url = t.get("external_urls", {}).get("spotify")
-
-#         tracks.append({
-#             "name": track_name,
-#             "artists": artists,
-#             "album": album,
-#             "image": imgae_url,
-#             "url": external_url,
-#         })
-
-#     return tracks
-
 def search_tracks_by_genre(genre: str, limit: int = 10):
     '''
     Spotify Search API를 통해 장르 검색 후 상위 검색 결과 리턴

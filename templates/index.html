@@ -1,22 +1,67 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section>
-    <h2>장르를 선택해 주세요</h2>
+<section class="index-section">
+    <h2 class="page-title">장르를 선택해 주세요</h2>
+    <p class="page-subtitle">
+        듣고 싶은 음악의 분위기를 골라보세요. 장르를 검색하거나 아래 버튼을 눌러 추천을 받아볼 수 있어요 🎵
+    </p>
 
-    <form action="{{ url_for('recommend') }}" method="post">
-        <label for="genre">장르 선택</label>
-        <select name="genre" id="genre" required>
-            <option value="" disabled selected>--- 장르를 선택하세요 ---</option>
+    <!-- 🔍 장르 검색창 -->
+    <input
+        type="text"
+        id="genreSearch"
+        class="genre-search"
+        placeholder="장르 검색 (예: rock, k-pop, jazz ...)"
+        autocomplete="off"
+    >
+
+    <form action="{{ url_for('recommend') }}" method="post" class="genre-form">
+        <!-- 🔘 장르 버튼 목록 -->
+        <div class="genre-container">
             {% for g in genres %}
-                <option value="{{ g }}">{{ g }}</option>
+                <button 
+                    type="submit"
+                    name="genre"
+                    value="{{ g }}"
+                    class="genre-btn"
+                    data-genre="{{ g | lower }}"
+                >
+                    {{ g }}
+                </button>
             {% endfor %}
-        </select>
+        </div>
 
-        <label for="limit">추천 받을 곡 개수</label>
-        <input type="number" id="limit" name="limit" value="10" min="1" max="30">
-
-        <button type="submit">추천 받기</button>
+        <div class="limit-row">
+            <label for="limit">추천 받을 곡 개수</label>
+            <input type="number" id="limit" name="limit" value="10" min="1" max="30">
+        </div>
     </form>
 </section>
+
+<!-- 🔍 검색어에 따라 버튼 필터링 -->
+<script>
+    const searchInput = document.getElementById("genreSearch");
+    const genreButtons = document.querySelectorAll(".genre-btn");
+
+    searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        genreButtons.forEach(btn => {
+            const genre = btn.dataset.genre;  // data-genre 값
+            if (!query || genre.includes(query)) {
+                btn.style.display = "inline-block";
+            } else {
+                btn.style.display = "none";
+            }
+        });
+    });
+
+    // 검색창에서 엔터 눌렀을 때 폼 제출 방지
+    searchInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+        }
+    });
+</script>
 {% endblock %}
