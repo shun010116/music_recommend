@@ -72,6 +72,7 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
     url = "https://api.spotify.com/v1/search"
     params = {
         "q": f'genre:"{genre}"',
+        "market": "KR",
         "type": "track",
         "limit": 50
     }
@@ -91,14 +92,14 @@ def search_tracks_by_genre(genre: str, limit: int = 10):
         artists = ", ".join([a.get("name", "") for a in t.get("artists", [])])
         album = t.get("album", {}).get("name")
         images = t.get("album", {}).get("images", [])
-        imgae_url = images[0]["url"] if images else None
+        image_url = images[0]["url"] if images else None
         external_url = t.get("external_urls", {}).get("spotify")
 
         all_tracks.append({
             "name": track_name,
             "artists": artists,
             "album": album,
-            "image": imgae_url,
+            "image": image_url,
             "url": external_url,
         })
 
