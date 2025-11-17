@@ -116,3 +116,8 @@ GET https://api.spotify.com/v1/search?q=genre:"{genre}"&type=track&limit=50
 ![results.html](./img/results.png)
 
 ---
+
+## 📜 License
+MIT License
+
+---
