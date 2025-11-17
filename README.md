@@ -15,7 +15,7 @@ Flask 기반 Spotify장르 추천 서비스
 
 ---
 
-## Tech Stack
+## 🛠  Tech Stack
 
 | 영역     | 기술                    |
 | -------- | ----------------------- |
@@ -26,7 +26,7 @@ Flask 기반 Spotify장르 추천 서비스
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
  music_recommend
@@ -47,7 +47,7 @@ Flask 기반 Spotify장르 추천 서비스
 
 ---
 
-## Environment Variables
+## 🔑 Environment Variables
 
 루트 폴더에 `.env`파일 생성 후 아래 값 입력:
 
@@ -62,7 +62,7 @@ Spotify Client ID/SECRET은
 
 ---
 
-## Installation & Run
+## 🚀 Installation & Run
 
 ### 1. Repository Clone
 
@@ -92,7 +92,7 @@ http://localhost:5000
 
 ---
 
-## How it Works
+## 🎧 How it Works
 
 1. 사용자가 웹에서 장르 선택
 2. Flask 서버에서 Spotify 토큰 발급
@@ -108,7 +108,7 @@ GET https://api.spotify.com/v1/search?q=genre:"{genre}"&type=track&limit=50
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
 기본 화면
 ![index.html](./img/index.png)
