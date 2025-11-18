@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Music Recommend</title>
 
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 <body>
-    <header>
-        <h1 style="text-align: center;"><a href="{{ url_for('index') }}">장르 기반 음악 추천</a></h1>
+    <header class="main-header">
+        <h1 class="site-title"><a href="{{ url_for('index') }}">장르 기반 음악 추천</a></h1>
     </header>
 
     <main>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <ul>
-                    {% for msg in messages %}
-                        <li>{{ msg }}</li>
-                    {% endfor %}
-                </ul>
+            <div class="flash-box">
+                {% for msg in messages %}
+                    <div class="flash-item">{{ msg }}</div>
+                {% endfor %}
+            </div>
             {% endif %}
         {% endwith %}
 
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <p style="text-align: right;">Powered by Spotify Web API - Flask</p>
+    <footer class="main-footer">
+        <p>Powered by Spotify Web API - Flask</p>
     </footer>
 </body>
 </html>
