@@ -11,6 +11,7 @@ Flask 기반 Spotify장르 추천 서비스
 - Spotify Search API 기반 장르 음악 검색
 - 장르 검색 기능 (실시간 필터링)
 - 추천 개수만큼 랜덤 선택
+- 추천 음악 저장 (MongoDB)
 - Flask + Jinja2 탬플릿 기반
 
 ---
@@ -22,6 +23,7 @@ Flask 기반 Spotify장르 추천 서비스
 | Backend  | Python, Flask           |
 | Frontend | HTML, CSS, JavaScript   |
 | API      | Spotify Web API         |
+| DB       | MongoDB (pymongo)       |
 | ETC      | requests, python-dotenv |
 
 ---
@@ -34,12 +36,15 @@ Flask 기반 Spotify장르 추천 서비스
 ├── templates
 │   ├── base.html
 │   ├── index.html
-│   └── results.html
+│   ├── results.html
+│   └── saved.html
 ├── static
 │   └── style.css
 ├── img/
 │   ├── index.png
-│   └── results.png
+│   ├── results.png
+│   ├── saved_1.png
+│   └── saved_2.png
 ├── .env
 ├── requirements.txt
 └── README.md
@@ -68,7 +73,7 @@ Spotify Client ID/SECRET은
 
 ```bash
 git clone https://github.com/shun010116/music_recommend.git
-cd YOUR_REPO
+cd music_recommend
 ```
 
 ### 2. Install Dependencies
@@ -86,7 +91,8 @@ python app.py
 ### 4. Access in Browser
 
 ```plain
-http://127.0.0.1:5000 또는
+http://127.0.0.1:5000
+OR
 http://localhost:5000
 ```
 
@@ -98,7 +104,8 @@ http://localhost:5000
 2. Flask 서버에서 Spotify 토큰 발급
 3. Spotify Search API 실행
 4. 검색된 곡 중 랜덤으로 선택
-5. 결과 페이지에서 출력
+5. 결과 페이지에서 출력 + 원하는 곡 저장
+6. /saved 페이지에서 저장된 곡 확인
 
 Search API 요청 예시:
 
@@ -108,12 +115,30 @@ GET https://api.spotify.com/v1/search?q=genre:"{genre}"&type=track&limit=50
 
 ---
 
+## 💾 MongoDB
+```json
+{
+    "name": "Track Name",
+    "artists": "Artist 1, Artist 2",
+    "album": "Album Name",
+    "image": "image_url",
+    "url": "spotify_track_url"
+}
+```
+삭제 시 `_id` 기반으로 제거
+
+---
+
 ## 📸 Screenshots
 
 기본 화면
 ![index.html](./img/index.png)
 예: jazz 검색 시 결과 반환
 ![results.html](./img/results.png)
+저장된 음악 목록(저장 전)
+![saved.html](./img/saved_1.png)
+저장된 음악 목록(저장 후)
+![saved.html](./img/saved_2.png)
 
 ---
 
