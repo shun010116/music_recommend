@@ -66,7 +66,7 @@ cd music_recommend
 ```bash
 pip install -r requirements.txt
 ```
-## 3. Environment Variables
+### 3. Environment Variables
 
 루트 폴더에 `.env`파일 생성 후 아래 값 입력:
 
