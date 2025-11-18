@@ -1,162 +1,222 @@
-/* ============================
-   GLOBAL PAGE THEME
-   ============================ */
+/* =========================
+   Spotify Dark Theme Base
+========================= */
+
 body {
-    background-color: #FFF5EB; /* 가장 밝은 배경 */
-    color: #4A4A4A;
-    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background-color: #121212; /* Spotify Background */
+    color: #FFFFFF;
+    font-family: 'Pretendard', sans-serif;
     margin: 0;
     padding: 0;
 }
 
-/* 공통 카드 섹션 */
-.index-section,
-.result-header {
-    background-color: #DEEDF0; /* 부드러운 하늘색 */
-    border-radius: 16px;
-    padding: 24px 20px;
-    margin: 30px auto;
+section {
+    width: 90%;
     max-width: 900px;
-    border: 1px solid #B2B8A3;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 40px 0;
+    text-align: center;
 }
 
-.page-title, .result-header h2 {
-    margin-top: 0;
-    color: #4A4A4A;
+h2 {
+    color: #1DB954; /* Spotify Green */
+    font-weight: 700;
 }
 
-.page-subtitle {
-    margin: 4px 0 20px;
-    color: #7A7A7A;
-}
+/* =========================
+   Saved Link (index 상단 이동 버튼)
+========================= */
 
-/* ============================
-   INPUT + SEARCH FIELD
-   ============================ */
-.genre-search {
-    width: 30%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid #B2B8A3;
-    background-color: #FFF;
-    color: #4a4a4a;
-    margin-bottom: 16px;
-}
-
-.genre-search::placeholder {
-    color: #B2B8A3;
-}
-
-/* ============================
-   GENRE BUTTONS (CHIPs)
-   ============================ */
-.genre-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.genre-btn {
-    background-color: #F4C7AB; /* 따뜻한 포인트 컬러 */
-    border: none;
-    color: #4A4A4A;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.2s ease;
-    font-size: 14px;
-}
-
-.genre-btn:hover {
-    background-color: #F2B892;
-    transform: translateY(-2px);
-}
-
-.genre-btn:active {
-    background-color: #E9A978;
-    transform: scale(0.96);
-}
-
-/* ============================
-   LIMIT INPUT (곡 개수)
-   ============================ */
-.limit-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-    color: #4a4a4a;
-}
-
-#limit {
-    width: 80px;
-    background-color: white;
-    border: 1px solid #B2B8A3;
-    padding: 6px 8px;
+.saved-link {
+    display: inline-block;
+    padding: 10px 16px;
+    margin-bottom: 25px;
+    background-color: #1DB954;
+    color: black;
     border-radius: 6px;
-    color: #4a4a4a;
-}
-
-/* ============================
-   RESULTS PAGE - TRACK CARDS
-   ============================ */
-.track-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 10px;
-}
-
-.track-card {
-    background-color: #DEEDF0;
-    border-radius: 14px;
-    border: 1px solid #B2B8A3;
-    overflow: hidden;
+    text-decoration: none;
+    font-weight: 600;
     transition: 0.2s;
 }
 
-.track-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+.saved-link:hover {
+    background-color: #1ed760;
 }
 
-/* 이미지 */
+/* =========================
+   Genre Search Input
+========================= */
+
+#genreSearch {
+    width: 70%;
+    padding: 12px;
+    margin-bottom: 25px;
+    font-size: 15px;
+    border: 2px solid #282828;
+    border-radius: 8px;
+    background-color: #1E1E1E;
+    color: white;
+}
+
+#genreSearch:focus {
+    border-color: #1DB954;
+}
+
+/* =========================
+   Genre Buttons
+========================= */
+
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.genre-btn {
+    padding: 10px 14px;
+    background-color: #212121;
+    border: 1px solid #333333;
+    color: #FFFFFF;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.genre-btn:hover {
+    background-color: #1DB954;
+    color: black;
+}
+
+/* =========================
+   Track Result Cards
+========================= */
+
+.track-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.track-card {
+    background-color: #181818;
+    border: 1px solid #282828;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}
+
 .track-img {
-    width: 100%;
+    width: 200px;
     height: 200px;
     object-fit: cover;
-}
-
-/* 텍스트 블록 */
-.track-info {
-    padding: 10px 12px;
+    border-radius: 10px;
 }
 
 .track-title {
-    margin: 0;
-    color: #4A4A4A;
-    font-weight: bold;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
 }
 
-.track-artists {
-    margin: 4px 0;
-    color: #6A6A6A;
-}
-
+.track-artists,
 .track-album {
-    margin: 2px 0 10px;
-    color: #7A7A7A;
+    color: #B3B3B3;
+    font-size: 14px;
 }
 
-/* 링크 */
+/* Spotify button */
+
 .spotify-link {
-    color: #F4C7AB;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #1DB954;
+    color: black;
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: bold;
+    transition: 0.2s;
 }
 
 .spotify-link:hover {
-    text-decoration: underline;
+    background-color: #1ed760;
+}
+
+/* Save button */
+
+.save-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background-color: #1DB954;
+    color: black;
+}
+
+/* =========================
+   Saved List Page
+========================= */
+
+.saved-grid {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+}
+
+.saved-card {
+    background-color: #181818;
+    border: 1px solid #282828;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.saved-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.saved-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: white;
+}
+
+.delete-btn {
+    margin-top: 12px;
+    padding: 6px 10px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #FF4C4C;
+}
+
+.empty-msg {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #B3B3B3;
 }

@@ -4,6 +4,8 @@ import base64
 import os
 from dotenv import load_dotenv
 import random
+from pymongo import MongoClient
+from bson import ObjectId
 
 # .env 로드
 load_dotenv()
@@ -15,6 +17,9 @@ app.secret_key = os.getenv("APP_SECRET_KEY")
 # .env에서 API 키 가져오기
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+
+if not CLIENT_ID or not CLIENT_SECRET:
+    raise RuntimeError("CLIENT_ID / CLIENT_SECRET이 설정되지 않았습니다.")
 
 SEED_GENRES = [
     "acoustic", "afrobeat", "alt-rock", "alternative",
@@ -41,10 +46,12 @@ SEED_GENRES = [
     "world-music",
 ]
 
-# Spotify Client credentials Flow로 Access Token 획득
-if not CLIENT_ID or not CLIENT_SECRET:
-    raise RuntimeError("CLIENT_ID / CLIENT_SECRET이 설정되지 않았습니다.")
+# MongoDB
+client = MongoClient('mongodb://localhost:27017/')
+db = client['music']
+saved_tracks_col = db['like']
 
+# Spotify Client credentials Flow로 Access Token 획득
 def get_spotify_token() -> str:
     auth_str = f"{CLIENT_ID}:{CLIENT_SECRET}"
     b64_auth_str = base64.b64encode(auth_str.encode('utf-8')).decode('utf-8')
@@ -119,7 +126,7 @@ def index():
     genres = SEED_GENRES
     return render_template("index.html", genres=genres)
 
-@app.route("/recommend", methods=["POST"])
+@app.route("/recommend", methods=["GET", "POST"])
 def recommend():
     '''
     선택한 장르를 받아서 추천 곡 제시
@@ -147,7 +154,54 @@ def recommend():
         return redirect(url_for("index"))
     
     return render_template("results.html", genre=genre, tracks=tracks, limit=limit)
+
+@app.route("/save", methods=["POST"])
+def save_track():
+    '''
+    검색 결과에서 선택한 트랙을 DB에 저장
+    '''
+
+    name = request.form.get("name")
+    artists = request.form.get("artists")
+    album = request.form.get("album")
+    image = request.form.get("image")
+    url_ = request.form.get("url")
+
+    if not name or not artists:
+        flash("필수정보가 부족합니다.")
+        return redirect(request.referrer or url_for("index"))
     
+    doc = {
+        "name": name,
+        "artist": artists,
+        "album": album,
+        "image": image,
+        "url": url_,
+    }
+    
+    saved_tracks_col.insert_one(doc)
+    flash(f"{name}이/가 트랙에 저장되었습니다.")
+    return redirect(url_for("saved_tracks"))
+
+@app.route("/saved", methods=["GET"])
+def saved_tracks():
+    '''
+    MongoDB에 저장된 음악 목록 출력
+    '''
+
+    tracks = list(saved_tracks_col.find())
+
+    return render_template("saved.html", tracks=tracks)
+
+@app.route("/delete", methods=["POST"])
+def delete_track():
+    track_id = request.form.get("id")
+
+    if track_id:
+        saved_tracks_col.delete_one({"_id": ObjectId(track_id)})
+        flash("음악이 삭제되었습니다.")
+
+    return redirect(url_for("saved_tracks"))
 
 if __name__ == "__main__":
     app.run(debug=True)

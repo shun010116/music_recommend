@@ -15,11 +15,21 @@
             {% endif %}
             <div class="track-info">
                 <h3 class="track-title">{{ t.name }}</h3>
-                <p class="track-artists">{{ t.artist }}</p>
+                <p class="track-artists">{{ t.artists }}</p>
                 <p class="track-album">{{ t.album }}</p>
                 {% if t.url %}
                     <a href="{{ t.url }}" target="_blank" class="spotify-link">Spotify에서 듣기</a>
                 {% endif %}
+
+                <form action="{{ url_for('save_track') }}" method="post" class="save-form">
+                    <input type="hidden" name="name" value="{{ t.name }}">
+                    <input type="hidden" name="artists" value="{{ t.artists }}">
+                    <input type="hidden" name="album" value="{{ t.album }}">
+                    <input type="hidden" name="image" value="{{ t.image }}">
+                    <input type="hidden" name="url" value="{{ t.url }}">
+                    
+                    <button type="submit" class="save-btn">저장하기</button>
+                </form>
             </div>
         </div>
     {% endfor %}

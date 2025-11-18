@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="saved-header">
+    <h2>저장된 음악 목록</h2>
+</section>
+
+{%if tracks %}
+    <div class="saved-grid">
+        {% for t in tracks %}
+            <div class="saved-card">
+                {% if t.image %}
+                    <img src="{{ t.image }}" alt="{{ t.name }}" class="saved-img">
+                {% endif %}
+
+                <div>
+                    <h3 class="saved-title">{{ t.name }}</h3>
+                    <p class="saved-artists">{{ t.artists }}</p>
+                    <p class="saved-album">{{ t.album }}</p>
+
+                    {% if t.url %}
+                        <a href="{{ t.url }}" target="_blank" class="spotify-link">Spotify에서 듣기</a>
+                    {% endif %}
+                </div>
+
+                <form action="{{ url_for('delete_track') }}" method="post">
+                    <input type="hidden" name="id" value="{{ t._id }}">
+                    <button class="delete-btn">삭제</button>
+                </form>
+            </div>
+        {% endfor %}
+                
+    </div>
+{% else %}
+    <p class="empty-msg">저장된 음악이 없습니다.</p>
+{% endif %}
+
+{% endblock %}
