@@ -52,21 +52,6 @@ Flask 기반 Spotify장르 추천 서비스
 
 ---
 
-## 🔑 Environment Variables
-
-루트 폴더에 `.env`파일 생성 후 아래 값 입력:
-
-```
-SPOTIFY_CLIENT_ID=your_spotify_client_id
-SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-APP_SECRET_KEY=any_random_string
-```
-
-Spotify Client ID/SECRET은
-[Spotify](https://developer.spotify.com/dashboard)에서 앱 생성 후 발급
-
----
-
 ## 🚀 Installation & Run
 
 ### 1. Repository Clone
@@ -81,16 +66,28 @@ cd music_recommend
 ```bash
 pip install -r requirements.txt
 ```
+## 3. Environment Variables
 
-### 3. Run Flask App
+루트 폴더에 `.env`파일 생성 후 아래 값 입력:
+
+```
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+APP_SECRET_KEY=any_random_string
+```
+
+Spotify Client ID/SECRET은
+[Spotify](https://developer.spotify.com/dashboard)<---에서 앱 생성 후 발급
+
+### 4. Run Flask App
 
 ```bash
 python app.py
 ```
 
-### 4. Access in Browser
+### 5. Access in Browser
 
-```plain
+```
 http://127.0.0.1:5000
 OR
 http://localhost:5000
